@@ -15,7 +15,7 @@ public sealed class CalendarEvent
     public EventStatus Status { get; private set; } = EventStatus.Active;
 
     // Concurrency token (EF will map RowVersion as a timestamp/rowversion)
-    public byte[] RowVersion { get; private set; } = Array.Empty<byte>();
+    public byte[]? RowVersion { get; private set; } = Array.Empty<byte>();
 
     private readonly List<Attendee> _attendees = new();
     public IReadOnlyCollection<Attendee> Attendees => _attendees;
@@ -31,7 +31,6 @@ public sealed class CalendarEvent
     )
     {
         SetCoreFields(title, description, start, end);
-
         if (attendees is not null)
         {
             foreach (var a in attendees)
@@ -82,6 +81,7 @@ public sealed class CalendarEvent
         ValidateTimeRange(start, end);
         StartTime = start;
         EndTime = end;
+        RowVersion = Guid.NewGuid().ToByteArray();
     }
 
     private void EnsureActive()
