@@ -23,7 +23,8 @@ public sealed class AppDbContext : DbContext
             b.Property(x => x.EndTime).IsRequired();
             b.Property(x => x.Status).IsRequired();
 
-            b.Property(x => x.RowVersion).IsRowVersion().IsConcurrencyToken();
+            b.Property(x => x.RowVersion) //.IsRowVersion()
+                .IsConcurrencyToken();
 
             b.OwnsMany(
                 x => x.Attendees,
