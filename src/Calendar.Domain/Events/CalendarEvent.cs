@@ -15,6 +15,7 @@ public sealed class CalendarEvent
     public EventStatus Status { get; private set; } = EventStatus.Active;
 
     // Concurrency token (EF will map RowVersion as a timestamp/rowversion)
+    // but for now because I am using SQL Server LocalDB, I will use a byte array. And initialize in the constructor.
     public byte[]? RowVersion { get; private set; } = Array.Empty<byte>();
 
     private readonly List<Attendee> _attendees = new();

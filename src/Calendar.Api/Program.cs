@@ -26,6 +26,7 @@ using (var scope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI();
 
+// All of this would be organized into separate files for a real project, but kept here for simplicity
 app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
 var group = app.MapGroup("/api/events").WithTags("Events");
